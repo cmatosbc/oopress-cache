@@ -3,8 +3,20 @@
     "description": "Collection of PSR-16 compliant cache drivers - some specific for Wordpress, but others agnostic.",
     "type": "library",
     "require": {
-        "psr/simple-cache": "^3.0"
+        "psr/simple-cache": "^3.0",
+        "cmatos-zenith/better-composer": "1.0.0"
     },
+    "autoload":{
+        "psr-4": {
+            "\\BC\\Zenith\\Cache\\": "src/"
+        }
+    },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://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@github.com/cmatosbc/better-composer.git"
+        }
+    ],
     "license": "Apache 2.0",
     "authors": [
         {
