@@ -1,8 +1,3 @@
-Here's the Memcached cache driver following the same logic as the RedisCache class:
-PHP
-Data format:
-
-
 <?php
 
 namespace BC\Zenith\Cache;
@@ -34,8 +29,10 @@ class MemcachedCache implements CacheInterface
             if (!$this->memcached->addServer($host, $port)) {
                 throw new DriverException('Failed to connect to Memcached server.');
             }
-        } catch (\Exception $e) {
+
             throw new DriverException('Failed to connect to Memcached: ' . $e->getMessage());
+        } catch (\Exception $e) {
+            error_log($e->getMessage());
         }
     }
 
