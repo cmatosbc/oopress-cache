@@ -1,0 +1,16 @@
+{
+    "name": "cmatos-zenith/better-cache",
+    "description": "Collection of PSR-16 compliant cache drivers - some specific for Wordpress, but others agnostic.",
+    "type": "library",
+    "require": {
+        "psr/simple-cache": "^3.0"
+    },
+    "license": "Apache 2.0",
+    "authors": [
+        {
+            "name": "cmatosbc",
+            "email": "cmatos@bettercollective.com"
+        }
+    ],
+    "minimum-stability": "beta"
+}
