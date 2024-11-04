@@ -19,6 +19,21 @@ This function is designed to cache the results of specific WordPress queries. It
 * Expiration: The $expires parameter can be a DateTime object or an integer representing seconds.
 * Serialization: Results are serialized before caching and deserialized when retrieved.
 
+### Example
+
+```php
+// Cache the results of a WP_Query for 1 hour
+$cachedQuery = withCachedQuery($cache, 3600);
+
+// Use the cached query to fetch recent posts
+$recentPosts = $cachedQuery([
+    'post_type' => 'post',
+    'posts_per_page' => 10,
+    'orderby' => 'date',
+    'order' => 'DESC'
+]);
+```
+
 ## ```withCache()``` Function
 
 This function is a more generic caching mechanism that can be used to cache the results of any callable function or method. It takes a cache interface and an expiration time as input. It returns a closure that, when called with a callable and its arguments, will:
@@ -33,6 +48,19 @@ This function is a more generic caching mechanism that can be used to cache the 
 * Generic Caching: This function can be used to cache the results of any PHP function or method.
 * Flexible Caching: The $process parameter can be a closure, a string (function name), or an array (method call).
 * Cache Key Generation: Cache keys are generated based on the callable's reflection and arguments, ensuring unique keys for different calls.
+
+### Example
+
+```php
+// Cache the result of a custom function for 24 hours
+$cachedFunction = withCache($cache, 86400);
+
+// Use the cached function to fetch a user's profile data
+$userProfile = $cachedFunction(function($userId) {
+    // Fetch user profile data from a database or API
+    return getUserProfile($userId);
+}, 123); // Pass the user ID as an argument
+```
 
 ## Use Cases:
 
