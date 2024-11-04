@@ -22,15 +22,18 @@ This function is designed to cache the results of specific WordPress queries. It
 ### Example
 
 ```php
-// Cache the results of a WP_Query for 1 hour
-$cachedQuery = withCachedQuery($cache, 3600);
+// Instantiate a FileCache instance
+$cacheDir = '/path/to/cache/directory';
+$cache = new FileCache($cacheDir);
 
-// Use the cached query to fetch recent posts
-$recentPosts = $cachedQuery([
+// Cache a post query for 1 hour
+$expireTime = new DateTime('+1 hour');
+$cachedPostQuery = withCachedQuery($cache, $expireTime, 'post');
+
+// Use the cached query
+$posts = $cachedPostQuery([
     'post_type' => 'post',
     'posts_per_page' => 10,
-    'orderby' => 'date',
-    'order' => 'DESC'
 ]);
 ```
 
@@ -52,14 +55,22 @@ This function is a more generic caching mechanism that can be used to cache the 
 ### Example
 
 ```php
-// Cache the result of a custom function for 24 hours
-$cachedFunction = withCache($cache, 86400);
+// Cache a custom function for 5 minutes
+$expireTime = new DateTime('+5 minutes');
+$cachedFunction = withCache($cache, $expireTime);
 
-// Use the cached function to fetch a user's profile data
-$userProfile = $cachedFunction(function($userId) {
-    // Fetch user profile data from a database or API
-    return getUserProfile($userId);
-}, 123); // Pass the user ID as an argument
+// Use the cached function
+$result = $cachedFunction(function () {
+    // Some expensive operation
+    return slow_calculation();
+});
+
+// Cache a static method for 1 day
+$expireTime = new DateTime('+1 day');
+$cachedStaticMethod = withCache($cache, $expireTime);
+
+// Use the cached static method
+$result = $cachedStaticMethod([MyClass::class, 'staticMethod'], 'arg1', 'arg2');
 ```
 
 ## Use Cases:
