@@ -80,3 +80,15 @@ $result = $cachedStaticMethod([MyClass::class, 'staticMethod'], 'arg1', 'arg2');
 * Reducing Server Load: Offload processing to the cache, especially for computationally expensive tasks.
 
 By using these functions, you can significantly improve the performance of your WordPress applications.
+
+## JS like syntax:
+
+A JS like syntax can also be used with PHP closures, so the next arguments can be passed directly to the Closure, like this.
+
+```php
+// Cache a custom function for 5 minutes
+$expireTime = new DateTime('+5 minutes');
+$result = withCache($cache, $expireTime)(function () {
+    return 'Hello, world!';
+});
+```
