@@ -1,6 +1,6 @@
 <?php
 
-namespace BC\Zenith\Cache;
+namespace Oopress\Cache;
 
 use Psr\SimpleCache\CacheInterface;
 
