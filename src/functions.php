@@ -85,7 +85,7 @@ function withCache(
             if ($cachedResult = $cache->get($cacheKey)) {
                 return unserialize($cachedResult);
             }
-            $cachedResult = call_user_func_array($process, $args); 
+            $cachedResult = call_user_func_array($process, ...$args); 
         }
 
         $cache->set($cacheKey, serialize($cachedResult), $expires);
