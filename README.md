@@ -1,4 +1,6 @@
 # Oopress Cache
+[![PHP Composer](https://github.com/cmatosbc/oopress-cache/actions/workflows/php.yml/badge.svg)](https://github.com/cmatosbc/oopress-cache/actions/workflows/php.yml)
+
 Oopress PHP PSR-16 cache drivers. Comes with the basic PSR compliant OOP approach possibility, but can also be used functionaly, from caching "high order functions" to be explained below. For now, it comes with drivers to manage file cache, a MySQL custom table cache adjusted for Wordpress, a Memcached and a Redis drivers. The classes can be used separatedly in any implementation, but also inside two high order functions: ```withCache()``` and ```withCachedQuery()```.
 
 ![OOPress](https://raw.githubusercontent.com/cmatosbc/oopress-cache/refs/heads/main/img/two.jpg)
