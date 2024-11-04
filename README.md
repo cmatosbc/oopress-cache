@@ -1,2 +1,41 @@
 # Oopress Cache
 Oopress PHP PSR-16 cache drivers. Comes with the basic PSR compliant OOP approach possibility, but can also be used functionaly, from caching "high order functions" to be explained below. For now, it comes with drivers to manage file cache, a MySQL custom table cache adjusted for Wordpress, a Memcached and a Redis drivers. The classes can be used separatedly in any implementation, but also inside two high order functions: ```withCache()``` and ```withCachedQuery()```.
+
+## ```withCachedQuery()``` Function
+
+This function is designed to cache the results of specific WordPress queries. It takes a cache interface, an expiration time, and a query type as input. It returns a closure that, when called with query arguments, will:
+
+* Check the Cache: It generates a cache key based on the query arguments and checks if the result is already cached.
+* Execute the Query: If the result isn't cached, it executes the specified query (WP_Query, WP_Term_Query, WP_Comment_Query, or a custom user query).
+* Cache the Result: The result is serialized and cached with the generated cache key and expiration time.
+* Return the Result: The cached or freshly fetched result is returned.
+
+### Key Points:
+
+* Caching Strategy: Caching is based on query arguments, ensuring that identical queries are not executed multiple times.
+* Query Types: The function supports caching for various query types: posts, terms, users, and comments.
+* Expiration: The $expires parameter can be a DateTime object or an integer representing seconds.
+* Serialization: Results are serialized before caching and deserialized when retrieved.
+
+## ```withCache()``` Function
+
+This function is a more generic caching mechanism that can be used to cache the results of any callable function or method. It takes a cache interface and an expiration time as input. It returns a closure that, when called with a callable and its arguments, will:
+
+* Check the Cache: It generates a cache key based on the callable's reflection and arguments.
+* Execute the Callable: If the result isn't cached, it executes the provided callable with the given arguments.
+* Cache the Result: The result is serialized and cached with the generated cache key and expiration time.
+* Return the Result: The cached or freshly computed result is returned.
+
+### Key Points:
+
+* Generic Caching: This function can be used to cache the results of any PHP function or method.
+* Flexible Caching: The $process parameter can be a closure, a string (function name), or an array (method call).
+* Cache Key Generation: Cache keys are generated based on the callable's reflection and arguments, ensuring unique keys for different calls.
+
+## Use Cases:
+
+* Performance Optimization: Reduce database queries and improve page load times by caching frequently used data.
+* API Rate Limiting: Cache API responses to avoid exceeding rate limits.
+* Reducing Server Load: Offload processing to the cache, especially for computationally expensive tasks.
+
+By using these functions, you can significantly improve the performance of your WordPress applications.
