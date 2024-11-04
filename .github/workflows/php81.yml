@@ -1,4 +1,4 @@
-name: PHP 8.1 Compatibility Check
+name: PHP 8.1 Compliant
 
 on:
   push:
