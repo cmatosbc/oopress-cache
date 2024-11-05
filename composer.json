@@ -2,18 +2,19 @@
     "name": "oopress/caching",
     "description": "Collection of PSR-16 compliant cache drivers - some specific for Wordpress, but others agnostic.",
     "type": "library",
+    "version": "1.0.0",
     "require": {
         "psr/simple-cache": "^3.0"
     },
     "autoload":{
         "psr-4": {
-            "\\Oopress\\Cache\\": "src/"
+            "Oopress\\": "src/"
         },
         "files": [
             "src/functions.php"
         ]
     },
-    "license": "GPL-3.0-or-later",
+    "license": "Apache 2.0",
     "authors": [
         {
             "name": "cmatosbc",
