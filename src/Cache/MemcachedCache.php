@@ -1,10 +1,8 @@
 <?php
 
-namespace BC\Zenith\Cache;
+namespace Oopress\Cache;
 
 use Psr\SimpleCache\CacheInterface;
-use BC\Zenith\Exceptions\MissingExtensionException;
-use BC\Zenith\Exceptions\DriverException;
 use Memcached;
 
 /**

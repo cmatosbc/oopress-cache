@@ -4,32 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "25680e2a69ba0bb03df871994b9071c4",
+    "content-hash": "5afe8319cfa800452b201bfe21fdf6c1",
     "packages": [
-        {
-            "name": "cmatos-zenith/better-composer",
-            "version": "1.0.0",
-            "source": {
-                "type": "git",
-                "url": "https://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@github.com/cmatosbc/better-composer.git",
-                "reference": "61e66d9256c9ec4889cdf408b873f39c876eafae"
-            },
-            "require": {
-                "composer-plugin-api": "^2.3"
-            },
-            "type": "composer-plugin",
-            "license": [
-                "Apache 2.0"
-            ],
-            "authors": [
-                {
-                    "name": "cmatosbc",
-                    "email": "cmatos@bettercollective.com"
-                }
-            ],
-            "description": "Composer plugin to manage Bc dependencies.",
-            "time": "2024-10-25T02:34:27+00:00"
-        },
         {
             "name": "psr/simple-cache",
             "version": "3.0.0",
@@ -85,10 +61,10 @@
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "beta",
-    "stability-flags": [],
+    "stability-flags": {},
     "prefer-stable": false,
     "prefer-lowest": false,
-    "platform": [],
-    "platform-dev": [],
-    "plugin-api-version": "2.3.0"
+    "platform": {},
+    "platform-dev": {},
+    "plugin-api-version": "2.6.0"
 }

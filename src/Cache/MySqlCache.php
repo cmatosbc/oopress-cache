@@ -1,16 +1,16 @@
 <?php
 
-namespace BC\Zenith\Cache;
+namespace Oopress\Cache;
 
 use Psr\SimpleCache\CacheInterface;
-use BC\Zenith\Utilities\Time;
+use Oopress\Utilities\Time;
 use wpdb;
 
 /**
  * MySQL cache driver implementing PSR-16 interface. 
  * Stores and retrieves cached data using a MySQL database table.
  * 
- * @package BC\Zenith\Cache
+ * @package Oopress\Cache
  */
 class MySqlCache implements CacheInterface
 {
