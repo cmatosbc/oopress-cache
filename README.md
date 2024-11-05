@@ -67,7 +67,7 @@ $mysqlCache->delete('my_key');
 
 // Clear the entire cache
 $mysqlCache->clear();
-``
+```
 
 ## ```withCachedQuery()``` Function
 
