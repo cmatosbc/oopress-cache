@@ -5,6 +5,70 @@ Oopress PHP PSR-16 cache drivers. Comes with the basic PSR compliant OOP approac
 
 ![OOPress](https://raw.githubusercontent.com/cmatosbc/oopress-cache/refs/heads/main/img/two.jpg)
 
+## Agnostic caching drivers
+
+Except for WPDB-based MySQL cache driver, all drivers in this package can also be used outside of Wordpress context. As PSR compliant drivers, they can be in any PHP script - similarly, the high order functions that you find in this package can also have other PSR-16 compliant cache objects injected. Using each driver is simple, although some of them have particular parameters. Here's an example for Redis:
+
+```php
+require_once('vendor/autoload.php');
+
+// Connect to Redis server (replace with your own configuration)
+$redisCache = new Oopress\Cache\RedisCache('localhost', 6379);
+
+// Set a value in the cache with a 10-minute TTL
+$redisCache->set('my_data', 'This is cached data!', 600);
+
+// Retrieve the cached value
+$cachedData = $redisCache->get('my_data');
+
+if ($cachedData !== false) {
+  echo "Retrieved data from cache: " . $cachedData;
+} else {
+  // Data not found in cache, fetch it from your application logic
+  // ...
+}
+
+// Delete a key from the cache
+$redisCache->delete('my_data');
+
+// Check if a key exists in the cache
+$exists = $redisCache->has('my_data');
+
+// Clear the entire cache
+$redisCache->clear();
+
+// Store multiple values with different TTLs
+$values = [
+  'key1' => 'value1',
+  'key2' => 'value2',
+];
+$redisCache->setMultiple($values, [
+  'key1' => 300, // 5 minutes
+  'key2' => null, // No expiration
+]);
+```
+
+For the MySQL cache, the class will assume you are in a Wordpress context, so WP's class wpdb is to be used by the driver. Like this:
+
+```php
+use Oopress\Cache\MySqlCache;
+
+// Create a new MySQL cache instance
+$mysqlCache = new MySqlCache(3600, 'caching_table'); // Default TTL of 1 hour, and table name defaults to chached_requests
+
+// Set a value in the cache
+$mysqlCache->set('my_key', 'This is my value');
+
+// Retrieve the value
+$value = $mysqlCache->get('my_key');
+
+// Delete a value
+$mysqlCache->delete('my_key');
+
+// Clear the entire cache
+$mysqlCache->clear();
+``
+
 ## ```withCachedQuery()``` Function
 
 This function is designed to cache the results of specific WordPress queries. It takes a cache interface, an expiration time, and a query type as input. It returns a closure that, when called with query arguments, will:
