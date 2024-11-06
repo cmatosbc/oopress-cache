@@ -1,0 +1,22 @@
+name: PHPUnit Tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Install  
+ Dependencies
+        run: composer install --prefer-dist --no-interaction  
+
+
+      - name: Run PHPUnit Tests
+        run: vendor/bin/phpunit
