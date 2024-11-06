@@ -26,7 +26,7 @@ class FileCache implements CacheInterface
         }
     }
 
-    private function getFilePath(string $key): string
+    public function getFilePath(string $key): string
     {
         return $this->directory . '/' . $key . '.cache';
     }
