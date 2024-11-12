@@ -3,6 +3,7 @@
 namespace Oopress\Cache;
 
 use Psr\SimpleCache\CacheInterface;
+use Psr\SimpleCache\CacheException;
 
 /**
  * Simple file PSR-16 compliant cache driver.
@@ -14,6 +15,8 @@ use Psr\SimpleCache\CacheInterface;
 
 class FileCache implements CacheInterface
 {
+    use Helpers;
+
     private string $directory;
 
     private $ttl;
@@ -33,6 +36,8 @@ class FileCache implements CacheInterface
 
     public function get(string $key, mixed $default = null): mixed
     {
+        $this->isValidKey($key);
+        
         $filePath = $this->getFilePath($key);
         if (!file_exists($filePath)) {
             return $default;
@@ -46,6 +51,7 @@ class FileCache implements CacheInterface
 
         $data = file_get_contents($filePath);
         if ($data === false) {
+            throw new CacheException("Failed to read from cache file: $filePath");
             return $default;
         }
 
@@ -68,16 +74,29 @@ class FileCache implements CacheInterface
     public function delete(string $key): bool
     {
         $filePath = $this->getFilePath($key);
-        return unlink($filePath);
+
+        if (!file_exists($filePath)) {
+            throw new \RuntimeException("Cache file does not exist: $filePath");
+        }
+
+        if (!unlink($filePath)) {
+            throw new \RuntimeException("Failed to delete cache file: $filePath");
+        } 
+        
+        return true;
     }
 
     public function clear(): bool
     {
         $files = glob($this->directory . '/*.cache');
+        
         foreach ($files as $file) {
-            unlink($file);
-        }
-        return true;
+            if (!unlink($file)) {
+                throw new \RuntimeException("Failed to delete cache file: $file");
+            }
+         }
+         
+         return true;
     }
 
     public function getMultiple(iterable $keys, mixed $default = null): iterable

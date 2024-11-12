@@ -14,7 +14,9 @@ class FileCacheTest extends TestCase
     public function setUp(): void
     {
         $this->cacheDir = sys_get_temp_dir() . '/phpunit-cache';
-        mkdir($this->cacheDir, 0777, true);
+        if (!file_exists($this->cacheDir)) {
+            mkdir($this->cacheDir, 0777, true);
+        }
         $this->cache = new FileCache($this->cacheDir);
     }
 
@@ -29,7 +31,6 @@ class FileCacheTest extends TestCase
         foreach ($files as $file) {
             unlink($file);
         }
-        rmdir($this->cacheDir);
     }
 
     public function testGet_ExistingKey_ReturnsValue(): void
